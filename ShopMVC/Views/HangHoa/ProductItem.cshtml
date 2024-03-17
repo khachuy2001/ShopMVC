@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ShopMVC.ViewModels.HangHoaVM>
+
+<h3> Có <b>@Model.Count()</b> sản phẩm.</h3>
+@foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-4 mb-4">
+        <a href="@Url.Action("Detail", "HangHoa", new { id = item.MaHH })" class="text-decoration-none">
+            <div class="card h-100 product-card">
+                <div class="position-relative">
+                    <img src="~/Hinh/HangHoa/@item.Hinh" class="card-img-top" alt="@item.TenHH">
+                    <div class="badge bg-secondary position-absolute top-0 start-0">@item.TenLoai</div>
+                    <div class="overlay"></div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@item.TenHH</h5>
+                    <p class="card-text">@item.MoTaNgan</p>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <p class="card-text text-dark fs-5 fw-bold mb-0">$@item.DonGia</p>
+                    <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                        <input type="hidden" name="id" value="@item.MaHH" />
+                        <button type="submit" class="btn btn-primary rounded-pill">
+                            <i class="fa fa-shopping-bag me-2"></i> Thêm vào giỏ
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </a>
+    </div>
+}
